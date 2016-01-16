@@ -12,52 +12,6 @@ ENT.Model = Model("models/weapons/w_eq_flashbang_thrown.mdl")
 AccessorFunc(ENT, "radius", "Radius", FORCE_NUMBER)
 AccessorFunc(ENT, "dmg", "Dmg", FORCE_NUMBER)
 
--- Would give credit if I knew where this came from :/
-/*local function PushPullRadius(pos, pusher)
-	local radius = 400
-	local phys_force = 1500
-	local push_force = 256
-
-	timer.Simple(2, function()
-		for k, target in pairs(ents.FindInSphere(pos, radius)) do
-			if IsValid(target) then
-				local tpos = target:LocalToWorld(target:OBBCenter())
-				local dir = (tpos - pos):GetNormal()
-				local phys = target:GetPhysicsObject()
-
-				if target:IsPlayer() and (not target:IsFrozen()) and ((not target.was_pushed) or target.was_pushed.t != CurTime()) then
-					dir.z = math.abs(dir.z) + 1
-
-					local push = dir * push_force
-					local vel = target:GetVelocity() + push
-					vel.z = math.min(vel.z, push_force)
-
-					/*if pusher == target and (not ttt_allow_jump:GetBool()) then
-						vel = VectorRand() * vel:Length()
-						vel.z = math.abs(vel.z)
-					end*
-
-					target:SetVelocity(vel)
-					target.was_pushed = {att=pusher, t=CurTime()}
-				elseif IsValid(phys) then
-					phys:ApplyForceCenter(dir * -1 * phys_force)
-				end
-			end
-		end
-
-		local phexp = ents.Create("env_physexplosion")
-		if IsValid(phexp) then
-			phexp:SetPos(pos)
-			phexp:SetKeyValue("magnitude", 100) --max
-			phexp:SetKeyValue("radius", radius)
-			-- 1 = no dmg, 2 = push ply, 4 = push radial, 8 = los, 16 = viewpunch
-			phexp:SetKeyValue("spawnflags", 1 + 2 + 16)
-			phexp:Spawn()
-			phexp:Fire("Explode", "", 0.2)
-		end
-	end)
-end*/
-
 function ENT:Initialize()
 	if not self:GetRadius() then self:SetRadius(256) end
 	if not self:GetDmg() then self:SetDmg(25) end
@@ -113,11 +67,6 @@ function ENT:Explode(tr, onCollide)
 					StartFires(pos, tr, 1, 30, false, self:GetOwner())
 				end
 			end
-
-			-- Below was from the op molly from kbz
-			--StartFires(self:GetPos(), tr, 60, 30, false, self:GetOwner())
-			-- Push all things
-			--PushPullRadius(self:GetPos(), self:GetOwner())
 
 			-- Light players on fire
 			for _, ent in pairs(ents.FindInSphere(self:GetPos(), self:GetRadius())) do
