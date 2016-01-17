@@ -18,7 +18,7 @@ end
 SWEP.Base				= "weapon_tttbasegrenade"
 SWEP.Spawnable 			= true
 
-SWEP.Kind = WEAPON_EQUIP
+SWEP.Kind = WEAPON_EQUIP2
 SWEP.CanBuy = {ROLE_TRAITOR}
 SWEP.LimitedStock = true
 
