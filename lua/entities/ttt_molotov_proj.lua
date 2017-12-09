@@ -1,9 +1,5 @@
 AddCSLuaFile()
 
-if SERVER then
-	resource.AddFile("materials/particles/ttt_molotov_smoke.vmt")
-end
-
 ENT.Type = "anim"
 ENT.Base = "ttt_basegrenade_proj"
 ENT.Model = Model("models/weapons/w_eq_flashbang_thrown.mdl")
@@ -35,7 +31,7 @@ function ENT:Explode(tr, onCollide)
 			util.Decal("Scorch", tr.HitPos + tr.HitNormal , tr.HitPos - tr.HitNormal) -- Mark on the ground
 			util.BlastDamage(self, self:GetOwner(), self:GetPos(), self:GetRadius(), self:GetDmg())  -- Damage players
 			self:EmitSound("explode_3") -- Sound
-			
+
 			-- Explosion effect
 			local effectdata = EffectData()
 			effectdata:SetOrigin(self:GetPos())
@@ -95,6 +91,6 @@ function ENT:Explode(tr, onCollide)
 	end
 end
 
-function ENT:PhysicsCollide(data, physobj) 
+function ENT:PhysicsCollide(data, physobj)
 	self:Explode(data, true)
 end
